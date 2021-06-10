@@ -1,0 +1,35 @@
+.modal-owerlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #33333390;
+  .modal-window {
+    background-color: #f0f0f0;
+    padding: 2rem 2rem 2rem 1rem;
+    max-width: 23rem;
+    .introduction {
+      font-family: "GeometriaMedium";
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+    .input {
+      border: 1px solid #828282;
+      margin-bottom: 2.2rem;
+      padding: 0.5rem 1.1rem 0.7rem;
+      letter-spacing: -0.3px;
+      border-radius: 0.5rem;
+    }
+  }
+}
+
+.fone-form-simple {
+  opacity: 1;
+  transition: all 3s;
+
+} 

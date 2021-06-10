@@ -1,0 +1,145 @@
+
+* {
+  font-family: 'Geometria', Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  margin: 0;
+  color:#333333;
+}
+
+[class$="_wrapper"] {
+  padding: 0 2rem;
+  @media screen and (max-width:  700px) {
+    padding: 0 .5rem;
+  }
+}
+
+.action-button {
+  padding: 0.5rem 1.1rem 0.7rem;
+  letter-spacing: -0.3px;
+  border-radius: 0.5rem;
+  background-color: transparent;
+  &.gold {
+    background-color: #FFDB2D;
+  }
+}
+
+.body_main {
+  padding-bottom: 1.3rem;
+  .main_wrapper {
+    margin-top: 0.6rem;
+    display: flex;
+    gap:1rem;
+    .main_heading {
+      .heading_h2 {
+        font-family: "GeometriaBold";
+        font-size: 1.9rem;
+        letter-spacing: -0.019rem;
+      }
+      .heading_description {
+        max-width: 25rem;
+        margin-top: 1.5rem;
+      }
+    }
+    .content {
+      .content_article-accordeon {
+        display: flex;
+        margin-top: 2.5rem;
+        margin-bottom: 4.1rem;
+        .article-accordeon_heading {
+          min-width: 13rem;
+          .accordeon_heading_h3 {
+            font-size: 1.5rem;
+          }
+          &:after {
+            content: "";
+            width: 91.5%;
+            border: 1px solid #FFDB2D;
+            float: right;
+            margin-top: 0.3rem;
+          }
+        }
+
+        .article-accordeon-content {
+          padding: 0 1rem 0 1.3rem;
+          transition: all 0.5s;  
+          .accordeon-article {
+            padding: 1.5rem 5rem 1.8rem 1.8rem;
+            margin: 0.2rem;
+            background-color: #F4F4F4;
+            position: relative;
+            &.active {
+              &::after {
+                transform: rotate(45deg);
+              }
+              .description {
+                max-height:999px;
+                padding: .55rem;
+              }
+            }
+            &::after {
+              content: url(./assets/img/open-Icon.png);
+              height: 19px;
+              width: 19px;
+              position: absolute;
+              right: 2.3rem;
+              top: 1.8rem;
+              transform: rotate(0deg);
+              transition: all 0.5s;          
+            }
+            .heading {
+              font-family: "GeometriaMedium";
+              line-height: 1.5rem;
+            }
+            .description {              
+              max-height:0px;
+              overflow: hidden;
+              transition: 0.5s; 
+              .paragraf {
+                margin-top:1rem;
+                line-height: 1.3rem;
+              }
+            }
+          }
+        }
+        @media screen and (max-width:  768px) {
+          flex-wrap: wrap;
+        }
+      }   
+
+    }
+    .main_aside {
+      position: relative;
+      background-color: #E0E0E0;
+      margin-top: .1rem;
+      min-width: 28rem;
+      height: 100%;
+      border-radius: .5rem;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      .aside_calendar {
+        width: 100%;
+        font-family: "GeometriaMedium";
+        font-size: 1.25rem;
+        text-align: center;
+        text-transform: uppercase;
+      }
+      @media screen and (max-width: 1024px) {
+        min-width: -webkit-fill-available;;
+      }
+    }
+    @media screen and (max-width: 1024px) {
+      flex-wrap: wrap;
+    }
+
+  }
+}
+
+.input {
+  border: 1px solid #828282;
+  margin-bottom: 1rem;
+  padding: 0.5rem 1.1rem 0.7rem;
+  letter-spacing: -0.3px;
+  border-radius: 0.5rem;
+}
