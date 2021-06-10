@@ -53,6 +53,7 @@
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
-    "mini-css-extract-plugin": "^1.6.0"
+    "mini-css-extract-plugin": "^1.6.0",
+    "uuid": "^3.4.0"
   }
 }

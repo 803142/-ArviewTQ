@@ -19,7 +19,7 @@ class Storage {
       this.storage = JSON.parse(storage);
       return true;
     }
-    return false;
+    return this.data.baseData;
   }
 
   getStorage() {

@@ -8,11 +8,12 @@ class Accordeon extends Component {
   }
 
   init() {
-    this.accordeons = [...qsAll('[class*=_article-accordeon]')];
     this.events.addEventList('accArticleClicked', [this.chengeAccordeonState.bind(this)]);
+    this.events.addEventList('accArticleNew', [this.render.bind(this)]);
   }
 
   render() {
+    this.accordeons = [...qsAll('[class*=_article-accordeon]')];
     this.accordeons.forEach((el, accIndex) => {
       [...qsAll('[class*=accordeon-article]', el)].forEach((item, index) => {
         const tempItem = item;

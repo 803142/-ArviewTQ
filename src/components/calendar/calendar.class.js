@@ -12,9 +12,9 @@ class Calendar extends Component {
   }
 
   init() {
-    this.events.addEventList('nextMonth', [this.nextMonth.bind(this)]);
-    this.events.addEventList('prevMonth', [this.prevMonth.bind(this)]);
-    this.events.addEventList('setData', [this.setData.bind(this)]);
+    this.events.addEventList('nextMonthCalendar', [this.nextMonth.bind(this)]);
+    this.events.addEventList('prevMonthCalendar', [this.prevMonth.bind(this)]);
+    this.events.addEventList('setDataCalendar', [this.setData.bind(this)]);
   }
 
   render() {
@@ -40,44 +40,60 @@ class Calendar extends Component {
       newActive.classList.toggle('active');
       this.active.classList.toggle('active');
       this.active = newActive;
+      const { dataO } = this.state.storage;
+      const D = new Date(dataO.getFullYear(), dataO.getMonth(), +data + 1);
+      this.input.valueAsDate = D;
+    } else {
+      const { value } = this.input;
+      const valueO = new Date(value);
+      this.drawCalendar(valueO.getFullYear(), valueO.getMonth());
+      this.events.dispatchEvent('setDataDayActions', [valueO.getDate()]);
     }
   }
 
   drawCalendar(year, month) {
     const Dlast = new Date(year, month + 1, 0).getDate();
-    const D = new Date(year, month, Dlast);
-    const DNlast = new Date(D.getFullYear(), D.getMonth(), Dlast).getDay();
-    const DNfirst = new Date(D.getFullYear(), D.getMonth(), 1).getDay();
+    this.D = new Date(year, month, Dlast);
+    const DNlast = new Date(this.D.getFullYear(), this.D.getMonth(), Dlast).getDay();
+    const DNfirst = new Date(this.D.getFullYear(), this.D.getMonth(), 1).getDay();
     let calendar = '<tr>';
-
+    const dayFormatted = `${this.state.data.month[this.D.getMonth()]} ${this.D.getFullYear()}`;
     if (DNfirst !== 0) {
       for (let i = 1; i < DNfirst; i += 1) calendar += '<td>';
     } else {
       for (let i = 0; i < 6; i += 1) calendar += '<td>';
     }
     for (let i = 1; i <= Dlast; i += 1) {
+      let className = '';
       if (
         i === new Date().getDate() &&
-        D.getFullYear() === new Date().getFullYear() &&
-        D.getMonth() === new Date().getMonth()
+        this.D.getFullYear() === new Date().getFullYear() &&
+        this.D.getMonth() === new Date().getMonth()
       ) {
-        calendar += `<td class="today active" data-click="setData" data-name="${i}">${i}`;
-      } else {
-        calendar += `<td data-click="setData" data-name="${i}">${i}`;
+        className += 'today active';
       }
-      if (new Date(D.getFullYear(), D.getMonth(), i).getDay() === 0) {
+
+      if (this.state.storage.dataAll[`${i}-${dayFormatted}`]) {
+        className += ' not-empty';
+      }
+
+      calendar += `<td class="${className}" data-click="setDataDayActions" data-name="${i}">${i}`;
+      if (new Date(this.D.getFullYear(), this.D.getMonth(), i).getDay() === 0) {
         calendar += '<tr>';
       }
     }
     for (let i = DNlast; i < 7; i += 1) calendar += '<td>&nbsp;';
     qs(` tbody`, this.template).innerHTML = calendar;
-    this.dataTag.innerHTML = `${this.state.data.month[D.getMonth()]} ${D.getFullYear()}`;
-    this.dataTag.dataset.month = D.getMonth();
-    this.dataTag.dataset.year = D.getFullYear();
+
+    this.dataTag.innerHTML = dayFormatted;
+    this.dataTag.dataset.month = this.D.getMonth();
+    this.dataTag.dataset.year = this.D.getFullYear();
     if (qsAll(` tbody tr`, this.template).length < 6) {
       qs(` tbody`, this.template).innerHTML +=
         '<tr><td>&nbsp;<td>&nbsp;<td>&nbsp;<td>&nbsp;<td>&nbsp;<td>&nbsp;<td>&nbsp;';
     }
+    this.state.storage.data = dayFormatted;
+    this.state.storage.dataO = this.D;
   }
 }
 export default Calendar;

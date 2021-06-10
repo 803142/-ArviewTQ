@@ -1,4 +1,4 @@
-const APPNAME = 'brainforce-test';
+const APPNAME = 'arview-test';
 const APPCONTAINERCLASS = `container app-${APPNAME}`;
 const BODYTAG = 'body';
 
