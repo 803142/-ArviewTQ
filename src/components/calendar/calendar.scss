@@ -8,6 +8,7 @@
   }
   td {
     border: transparent 1px solid;
+    cursor: pointer;
     &.active {
       border: red 1px solid;
     }

@@ -8,8 +8,12 @@ const template = {
     return simpleTag({ classTag: 'description' });
   },
   createContentItem(item) {
-    const [[name, value]] = Object.entries(item);
-    return simpleTag({ classTag: 'paragraph' }, `${name}:${value}`);
+    if (item) {
+      console.log(item);
+      const [[, value], [, ru]] = Object.entries(item);
+      return simpleTag({ classTag: 'paragraph' }, `${ru}:${value}`);
+    }
+    return false;
   },
   render() {
     return simpleTag({ classTag: 'accordeon-article' });

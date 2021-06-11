@@ -5,19 +5,22 @@ const baseData = {
         id: '22222',
         title: 'День рожденья собаки',
         type: 'holiday',
-        columns: [{ budget: '300p' }],
+        columns: [{ budget: '300p', ru: 'Бюджет' }],
       },
       {
         id: '22223',
         title: 'Пьянка у соседа',
         type: 'event',
-        columns: [{ address: '309кв' }, { time: '13:59' }],
+        columns: [
+          { address: '309кв', ru: 'Адресс' },
+          { time: '13:59', ru: 'Время' },
+        ],
       },
       {
         id: '22224',
         title: 'Заметочка',
         type: 'other',
-        columns: [{ заметка: 'По дороге домой купить хлеба' }],
+        columns: [{ description: 'По дороге домой купить хлеба', ru: 'Заметка' }],
       },
     ],
   },
@@ -30,7 +33,7 @@ const baseData = {
         time: { ru: 'Время', type: 'time' },
       },
     },
-    other: { ru: 'Заметка', options: { description: { ru: 'заметка', type: 'text' } } },
+    other: { ru: 'Заметка', options: { description: { ru: 'Заметка', type: 'text' } } },
   },
 };
 

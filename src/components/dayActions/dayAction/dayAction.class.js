@@ -30,6 +30,16 @@ class DayAction {
         'править'
       )
     );
+    result.appendChild(
+      simpleTag(
+        {
+          classTag: 'edit-button',
+          tagName: 'button',
+          advanced: { 'data-click': 'deleteActionForm', 'data-name': `${this.id}` },
+        },
+        'Удалить'
+      )
+    );
     return result;
   }
 }
