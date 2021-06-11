@@ -32,11 +32,17 @@ class Form extends Component {
     this.formComponentPlace = qs('[data-component="form"]', componentPlace);
     this.formComponentPlace.replaceWith(this.template);
     const typeOptions = qs('[name="type"]', this.template);
+    const newTypeOptions = simpleTag({
+      tagName: 'select',
+      classTag: 'input',
+      advanced: { name: 'type', 'data-change': 'selectTypeActionForm' },
+    });
     Object.entries(this.state.data.baseData.dataTypes).forEach((type) => {
       const [name, data] = type;
       const option = simpleTag({ tagName: 'option', advanced: { value: name } }, data.ru);
-      typeOptions.appendChild(option);
+      newTypeOptions.appendChild(option);
     });
+    typeOptions.replaceWith(newTypeOptions);
     this.events.dispatchEvent('openedModal');
   }
 
@@ -49,18 +55,24 @@ class Form extends Component {
         const { value, name } = filtered;
         return [value, name];
       });
+    valueO.forEach((item) => {
+      const [value, name] = item;
+      this.draftAction[name] = value;
+    });
     console.log(valueO);
   }
 
   selectTypeActionForm([type]) {
-    // const newAction = new DayAction();
     const { form } = document.forms;
     const additionalInfo = qs('.data-atributes', form);
     const newAdditionalInfo = simpleTag({ classTag: 'data-atributes' });
     const { dataTypes } = this.state.data.baseData;
     const additionalTypeInfo = dataTypes[type].options;
+    this.draftAction.type = type;
+    this.draftAction.columns = [];
     Object.entries(additionalTypeInfo).forEach((item) => {
       const [name, options] = item;
+      this.draftAction.columns.push({ name: '' });
       const label = simpleTag({ tagName: 'label' }, options.ru);
       const input = simpleTag({
         tagName: 'input',
@@ -83,6 +95,13 @@ class Form extends Component {
         if (value < 4) return false;
         return { value, name };
       });
+    const date = `${this.state.storage.day}-${this.state.storage.data}`;
+    const { dataAll } = this.state.storage;
+    if (!dataAll[date]) dataAll[date] = [];
+    dataAll[date] = [...dataAll[date], this.draftAction];
+    console.log(this.state);
+    this.template = template.render();
+    this.events.dispatchEvent('closedModal');
     console.log(valueO);
   }
 
