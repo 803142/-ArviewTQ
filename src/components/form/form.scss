@@ -1,6 +1,7 @@
 .form {
   display:flex;
   flex-direction: column;
+  min-width: 19rem;
 }
 select {
   border: 1px solid #828282;
@@ -8,4 +9,8 @@ select {
   padding: 0.5rem 1.1rem 0.7rem;
   letter-spacing: -0.3px;
   border-radius: 0.5rem;
+}
+.data-atributes {
+  display: flex;
+  flex-direction: column;
 }

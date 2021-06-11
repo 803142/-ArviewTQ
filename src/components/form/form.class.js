@@ -47,17 +47,30 @@ class Form extends Component {
       .filter((el) => el.nodeName === 'INPUT' || el.nodeName === 'SELECT')
       .map((filtered) => {
         const { value, name } = filtered;
-        return { value, name };
+        return [value, name];
       });
     console.log(valueO);
   }
 
-  selectTypeActionForm() {
-    const newAction = new DayAction();
+  selectTypeActionForm([type]) {
+    // const newAction = new DayAction();
     const { form } = document.forms;
-    const select = [...form.elements].filter((el) => el.nodeName === 'SELECT');
-
-    console.log(select.selectedIndex, this.draftAction, newAction);
+    const additionalInfo = qs('.data-atributes', form);
+    const newAdditionalInfo = simpleTag({ classTag: 'data-atributes' });
+    const { dataTypes } = this.state.data.baseData;
+    const additionalTypeInfo = dataTypes[type].options;
+    Object.entries(additionalTypeInfo).forEach((item) => {
+      const [name, options] = item;
+      const label = simpleTag({ tagName: 'label' }, options.ru);
+      const input = simpleTag({
+        tagName: 'input',
+        classTag: 'input',
+        advanced: { name, type: options.type },
+      });
+      newAdditionalInfo.appendChild(label);
+      newAdditionalInfo.appendChild(input);
+    });
+    additionalInfo.replaceWith(newAdditionalInfo);
   }
 
   submitForm() {

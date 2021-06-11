@@ -39,7 +39,7 @@ class App extends Component {
     document.body.addEventListener('change', (changed) => {
       const { target } = changed;
       if (target.dataset.change) {
-        this.events.dispatchEvent(target.dataset.change);
+        this.events.dispatchEvent(target.dataset.change, target.value);
       }
     });
     document.body.addEventListener('focusin', (focused) => {
