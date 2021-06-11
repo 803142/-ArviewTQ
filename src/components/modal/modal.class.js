@@ -2,36 +2,27 @@ import Component from '../component';
 import './modal.scss';
 
 import modal from './modal.template';
-import * as telInput from './lbr/input-tel.lbr';
 
 class Modal extends Component {
-  constructor() {
+  constructor(component) {
     super();
-    this.telInput = telInput;
-    this.accordeons = [];
+    this.modal = modal.render(component);
   }
 
   init(app) {
     this.app = app;
-    this.events.addEventList('openedContactFormModal', [this.addToDomModalForm.bind(this)]);
-    this.events.addEventList('closedContactFormModal', [this.remooveModalFormFromDom.bind(this)]);
+    this.events.addEventList('openedModal', [this.addToDomModal.bind(this)]);
+    this.events.addEventList('closedModal', [this.remooveModalFromDom.bind(this)]);
   }
 
-  render() {
-    this.modalForm = modal.render();
+  addToDomModal() {
+    this.app.appendChild(this.modal);
   }
 
-  async addToDomModalForm() {
-    this.app.appendChild(this.modalForm);
-  }
-
-  remooveModalFormFromDom() {
-    this.modalForm.remove();
-    this.modalForm = modal.render();
-  }
-
-  selectModalFormFromDom() {
-    this.telInput.preventStartValueSelect();
+  remooveModalFromDom() {
+    this.modal.remove();
+    this.events.removeEvent('openedModal');
+    this.events.removeEvent('closedModal');
   }
 }
 export default Modal;

@@ -40,10 +40,6 @@ class DayActions extends Component {
   }
 
   drawData(data) {
-    if (!this.state.storage.dataAll) {
-      this.state.storage.dataAll = { ...this.state.data.baseData.dataAll };
-      this.state.toLocalStorage();
-    }
     const dayData = this.state.storage.dataAll[data];
     const newContent = template.createContentWrapper();
     if (dayData) {

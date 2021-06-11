@@ -1,0 +1,11 @@
+.form {
+  display:flex;
+  flex-direction: column;
+}
+select {
+  border: 1px solid #828282;
+  margin-bottom: 2.2rem;
+  padding: 0.5rem 1.1rem 0.7rem;
+  letter-spacing: -0.3px;
+  border-radius: 0.5rem;
+}

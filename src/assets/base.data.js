@@ -15,16 +15,22 @@ const baseData = {
       },
       {
         id: '22224',
-        title: 'Пьянка у соседа',
+        title: 'Заметочка',
         type: 'other',
-        columns: [{ Адрес: '309кв' }],
+        columns: [{ заметка: 'По дороге домой купить хлеба' }],
       },
     ],
   },
   dataTypes: {
-    holiday: { budget: { ru: 'Бюджет', type: 'text' } },
-    event: { address: { ru: 'Адрес', type: 'text' }, time: { ru: 'Время', type: 'time' } },
-    other: { description: { ru: 'заметка', type: 'text' } },
+    holiday: { ru: 'Праздник', options: { budget: { ru: 'Бюджет', type: 'text' } } },
+    event: {
+      ru: 'Событие',
+      options: {
+        address: { ru: 'Адрес', type: 'text' },
+        time: { ru: 'Время', type: 'time' },
+      },
+    },
+    other: { ru: 'Заметка', options: { description: { ru: 'заметка', type: 'text' } } },
   },
 };
 

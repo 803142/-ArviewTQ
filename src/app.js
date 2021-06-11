@@ -54,6 +54,13 @@ class App extends Component {
         this.events.dispatchEvent(target.dataset.focusout);
       }
     });
+    document.body.addEventListener('submit', (submited) => {
+      submited.preventDefault();
+      const { target } = submited;
+      if (target.dataset.submit) {
+        this.events.dispatchEvent(target.dataset.submit);
+      }
+    });
   }
 }
 

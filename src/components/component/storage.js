@@ -2,7 +2,7 @@ import * as baseData from '../../assets';
 
 class Storage {
   constructor() {
-    this.storage = {};
+    this.storage = { ...this.data };
     this.appName = 'app';
     this.data = baseData;
   }
@@ -13,10 +13,11 @@ class Storage {
   }
 
   getLocalStorage() {
+    this.storage = { ...this.data.baseData };
     const myStorage = window.localStorage;
     const storage = myStorage[this.appName];
     if (storage) {
-      this.storage = JSON.parse(storage);
+      this.storage = { ...JSON.parse(storage) };
       return true;
     }
     return this.data.baseData;

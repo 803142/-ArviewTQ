@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
+import { simpleTag } from '../../../helper';
 import template from './dayAction.template';
 
 class DayAction {
@@ -19,6 +20,16 @@ class DayAction {
     const result = this.template;
     result.appendChild(headding);
     result.appendChild(contentWrapper);
+    result.appendChild(
+      simpleTag(
+        {
+          classTag: 'edit-button',
+          tagName: 'button',
+          advanced: { 'data-click': 'editActionEditForm', 'data-name': `${this.id}` },
+        },
+        'править'
+      )
+    );
     return result;
   }
 }

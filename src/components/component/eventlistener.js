@@ -16,6 +16,12 @@ class EventEmitter {
     return false;
   }
 
+  removeEvent(event) {
+    if (this.events[event]) {
+      delete this.events[event];
+    }
+  }
+
   dispatchEvent(event, ...arg) {
     if (event === undefined) {
       return false;

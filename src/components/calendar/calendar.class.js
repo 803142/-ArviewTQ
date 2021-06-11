@@ -49,6 +49,7 @@ class Calendar extends Component {
       this.drawCalendar(valueO.getFullYear(), valueO.getMonth());
       this.events.dispatchEvent('setDataDayActions', [valueO.getDate()]);
     }
+    this.state.toLocalStorage();
   }
 
   drawCalendar(year, month) {
@@ -72,8 +73,8 @@ class Calendar extends Component {
       ) {
         className += 'today active';
       }
-
-      if (this.state.storage.dataAll[`${i}-${dayFormatted}`]) {
+      const { dataAll } = this.state.storage;
+      if (dataAll && dataAll[`${i}-${dayFormatted}`]) {
         className += ' not-empty';
       }
 
