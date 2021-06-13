@@ -44,8 +44,10 @@ class DayActions extends Component {
     const newContent = template.createContentWrapper();
     if (dayData) {
       dayData.forEach((item) => {
-        const itemObject = new DayAction(item);
-        newContent.appendChild(itemObject.render());
+        if (item) {
+          const itemObject = new DayAction(item);
+          newContent.appendChild(itemObject.render());
+        }
       });
     }
     this.content.replaceWith(newContent);

@@ -30,10 +30,11 @@ class App extends Component {
         this.events.dispatchEvent(`${action}`, `${name}`);
       }
     });
-    document.body.addEventListener('input', (input) => {
-      const { target } = input;
+    document.body.addEventListener('input', (inputed) => {
+      const { target } = inputed;
       if (target.dataset.input) {
-        this.events.dispatchEvent(target.dataset.input);
+        const { input, name } = target.dataset;
+        this.events.dispatchEvent(`${input}`, `${name}`);
       }
     });
     document.body.addEventListener('change', (changed) => {

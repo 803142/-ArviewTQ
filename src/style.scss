@@ -34,13 +34,13 @@
   letter-spacing: -0.3px;
   border-radius: 0.5rem;
 }
-
 .body_main {
   padding-bottom: 1.3rem;
   .main_wrapper {
     margin-top: 0.6rem;
     display: flex;
     gap:1rem;
+    justify-content: center;
     .main_heading {
       .heading_h2 {
         font-family: "GeometriaBold";
@@ -80,6 +80,10 @@
             margin: 0.2rem;
             background-color: #F4F4F4;
             position: relative;
+            box-shadow: 0.1rem 0.1rem .5rem rgb(0 0 0 / 9%), -0.1rem -0.1rem .5rem rgb(255 255 255 / 80%);
+            border-radius: 0.5rem;
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
             &.active {
               &::after {
                 transform: rotate(45deg);
@@ -118,7 +122,6 @@
           flex-wrap: wrap;
         }
       }   
-
     }
     .main_aside {
       position: relative;
@@ -145,7 +148,6 @@
     @media screen and (max-width: 1024px) {
       flex-wrap: wrap;
     }
-
   }
 }
 

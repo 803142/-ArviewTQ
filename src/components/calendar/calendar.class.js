@@ -37,8 +37,8 @@ class Calendar extends Component {
   setData([data]) {
     if (data) {
       const newActive = qs(`[data-name="${data}"]`, this.template);
-      newActive.classList.toggle('active');
-      this.active.classList.toggle('active');
+      if (newActive) newActive.classList.toggle('active');
+      if (this.active) this.active.classList.toggle('active');
       this.active = newActive;
       const { dataO } = this.state.storage;
       const D = new Date(dataO.getFullYear(), dataO.getMonth(), +data + 1);
@@ -74,7 +74,7 @@ class Calendar extends Component {
         className += 'today active';
       }
       const { dataAll } = this.state.storage;
-      if (dataAll && dataAll[`${i}-${dayFormatted}`]) {
+      if (dataAll && dataAll[`${i}-${dayFormatted}`] && dataAll[`${i}-${dayFormatted}`].length) {
         className += ' not-empty';
       }
 

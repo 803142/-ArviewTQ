@@ -9,7 +9,6 @@ const template = {
   },
   createContentItem(item) {
     if (item) {
-      console.log(item);
       const [[, value], [, ru]] = Object.entries(item);
       return simpleTag({ classTag: 'paragraph' }, `${ru}:${value}`);
     }

@@ -19,33 +19,41 @@ class Form extends Component {
     this.events.addEventList('submitActionForm', [this.submitForm.bind(this)]);
     this.events.addEventList('inputActionForm', [this.inputInForm.bind(this)]);
     this.events.addEventList('selectTypeActionForm', [this.selectTypeActionForm.bind(this)]);
+    this.events.addEventList('setStartOptions', [this.startValueOptions.bind(this)]);
     this.events.addEventList('deleteActionForm', [this.deleteActionForm.bind(this)]);
+    this.events.addEventList('setStartTypeValue', [this.setStartTypeValue.bind(this)]);
   }
 
   render(app) {
     this.app = app;
   }
 
-  createActionCreateForm() {
-    this.draftAction = new DayAction();
+  createActionCreateForm([item]) {
+    this.draftAction = new DayAction(item);
     const modal = new Modal('form');
     modal.init(this.app);
     const componentPlace = modal.modal;
     this.formComponentPlace = qs('[data-component="form"]', componentPlace);
     this.formComponentPlace.replaceWith(this.template);
+    const title = qs('[name="title"]', this.template);
+    if (item) title.value = this.draftAction.title;
     const typeOptions = qs('[name="type"]', this.template);
     const newTypeOptions = simpleTag({
       tagName: 'select',
       classTag: 'input',
       advanced: { name: 'type', 'data-change': 'selectTypeActionForm' },
     });
-    Object.entries(this.state.data.baseData.dataTypes).forEach((type) => {
+    Object.entries(this.state.data.baseData.dataTypes).forEach((type, index) => {
       const [name, data] = type;
       const option = simpleTag({ tagName: 'option', advanced: { value: name } }, data.ru);
+      if (index === 0) {
+        option.selected = true;
+      }
       newTypeOptions.appendChild(option);
     });
     typeOptions.replaceWith(newTypeOptions);
     this.events.dispatchEvent('openedModal');
+    this.events.dispatchEvent('selectTypeActionForm');
   }
 
   inputInForm() {
@@ -65,10 +73,11 @@ class Form extends Component {
 
   selectTypeActionForm([type]) {
     const { form } = document.forms;
+    const typeSelected = type || form.elements.type.value;
     const additionalInfo = qs('.data-atributes', form);
     const newAdditionalInfo = simpleTag({ classTag: 'data-atributes' });
     const { dataTypes } = this.state.data.baseData;
-    const additionalTypeInfo = dataTypes[type].options;
+    const additionalTypeInfo = dataTypes[typeSelected].options;
     this.draftAction.type = type;
     this.draftAction.columns = [];
     Object.entries(additionalTypeInfo).forEach((item) => {
@@ -85,6 +94,7 @@ class Form extends Component {
           name,
           type: options.type,
           'data-input': 'editOptionsActionForm',
+          'data-name': `${this.draftAction.id}`,
         },
       });
       newAdditionalInfo.appendChild(label);
@@ -95,45 +105,34 @@ class Form extends Component {
 
   submitForm() {
     const { form } = document.forms;
-    this.form = form;
+    if (!form.elements.type.value) return;
     const date = `${this.state.storage.day}-${this.state.storage.data}`;
     const { dataAll } = this.state.storage;
     if (!dataAll[date]) dataAll[date] = [];
-    dataAll[date] = [...dataAll[date], this.draftAction];
+    let edditted = dataAll[date].find((item) => item.id === this.draftAction.id);
+    if (edditted) {
+      edditted = { ...this.draftAction };
+    } else {
+      dataAll[date] = [...dataAll[date], this.draftAction];
+    }
     this.template = template.render();
     this.events.dispatchEvent('closedModal');
     this.events.dispatchEvent('setDataCalendar');
   }
 
   editActionEditForm([id]) {
-    const dataAll = this.state.storage;
-    const title = `${this.state.storage.day}-${this.state.storage.data}`;
-    if (dataAll[title]) this.draftAction = dataAll[title].find((action) => action.id === id);
-    const modal = new Modal('form');
-    modal.init(this.app);
-    const componentPlace = modal.modal;
-    this.formComponentPlace = qs('[data-component="form"]', componentPlace);
-    this.formComponentPlace.replaceWith(this.template);
-    // const typeOptions = qs('[name="type"]', this.template);
-    // const newTypeOptions = simpleTag({
-    //   tagName: 'select',
-    //   classTag: 'input',
-    //   advanced: { name: 'type', 'data-change': 'selectTypeActionForm' },
-    // });
-    this.events.dispatchEvent('openedModal');
+    const item = this.findById(id);
+    this.draftAction = item;
+    this.events.dispatchEvent('createActionCreateForm', item);
+    this.events.dispatchEvent('setStartTypeValue', item.type);
+    this.events.dispatchEvent('setStartOptions', item.id);
   }
 
   editOptionsActionForm([id]) {
     const { form } = document.forms;
     this.form = form;
-    const date = `${this.state.storage.day}-${this.state.storage.data}`;
-    const { dataAll } = this.state.storage;
-    let currentActive = null;
-    if (dataAll[date] && dataAll[date][id]) {
-      currentActive = dataAll[date][id];
-    }
-    if (currentActive) this.draftAction = currentActive;
-    this.draftAction.columns.forEach((item) => {
+    const currentActive = this.findById(id);
+    currentActive.columns.forEach((item) => {
       const [[name]] = Object.entries(item);
       const val = this.form.elements[name].value;
       const index = this.draftAction.columns.find((option) => option[name]);
@@ -141,11 +140,54 @@ class Form extends Component {
     });
   }
 
+  setStartTypeValue([type]) {
+    const { form } = document.forms;
+    const additionalInfo = qs('.data-atributes', form);
+    const newAdditionalInfo = simpleTag({ classTag: 'data-atributes' });
+    const { dataTypes } = this.state.data.baseData;
+    const additionalTypeInfo = dataTypes[type].options;
+    Object.entries(additionalTypeInfo).forEach((item) => {
+      const [name, options] = item;
+      const neededOption = this.draftAction.columns.find((opt) => opt[`${name}`] === name);
+      const label = simpleTag({ tagName: 'label' }, options.ru);
+      const input = simpleTag({
+        tagName: 'input',
+        classTag: 'input',
+        advanced: {
+          name,
+          type: options.type,
+          value: `${neededOption}`,
+          'data-input': 'editOptionsActionForm',
+          'data-name': `${this.draftAction.id}`,
+        },
+      });
+      newAdditionalInfo.appendChild(label);
+      newAdditionalInfo.appendChild(input);
+    });
+    additionalInfo.replaceWith(newAdditionalInfo);
+  }
+
+  startValueOptions([id]) {
+    const { form } = document.forms;
+    const currentActive = this.findById(id);
+    currentActive.columns.forEach((item) => {
+      const [[name, value]] = Object.entries(item);
+      form.elements[name].value = value;
+    });
+  }
+
   deleteActionForm([id]) {
     const { dataAll } = this.state.storage;
     const date = `${this.state.storage.day}-${this.state.storage.data}`;
-    dataAll[date] = [...dataAll[date].filter((item) => item.id !== id)];
+    dataAll[date] = [...dataAll[date].filter((item) => item && item.id !== id)];
     this.events.dispatchEvent('setDataCalendar');
+  }
+
+  findById(id) {
+    const date = `${this.state.storage.day}-${this.state.storage.data}`;
+    const { dataAll } = this.state.storage;
+    const currentActive = dataAll[date].find((item) => item.id === id);
+    return currentActive;
   }
 }
 export default Form;

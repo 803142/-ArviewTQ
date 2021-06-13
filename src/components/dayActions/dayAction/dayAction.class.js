@@ -3,7 +3,7 @@ import { simpleTag } from '../../../helper';
 import template from './dayAction.template';
 
 class DayAction {
-  constructor({ id = uuidv4(), title = 'default title', type, columns = [] } = {}) {
+  constructor({ id = uuidv4(), title = '', type, columns = [] } = {}) {
     this.id = id;
     this.title = title;
     this.type = type;

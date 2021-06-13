@@ -9,8 +9,12 @@
   td {
     border: transparent 1px solid;
     cursor: pointer;
+    line-height: 2.5rem;
+    font-size: 1.1rem;
+    box-shadow: 0.1rem 0.1rem 1rem rgb(0 0 0 / 8%), -0.1rem -0.1rem 1rem rgb(255 255 255 / 60%);
+    border-radius: 0.5rem;
     &.active {
-      border: red 1px solid;
+      border: rgba(255,0,0,0.4) 1px solid;
     }
   }
 }
