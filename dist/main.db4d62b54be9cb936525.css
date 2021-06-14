@@ -1,0 +1,225 @@
+* {
+  font-family: "Geometria", Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  margin: 0;
+  color: #333333;
+}
+
+[class$=_wrapper] {
+  padding: 0 2rem;
+}
+@media screen and (max-width: 700px) {
+  [class$=_wrapper] {
+    padding: 0 0.5rem;
+  }
+}
+
+.action-button {
+  padding: 0.5rem 1.1rem 0.7rem;
+  letter-spacing: -0.3px;
+  border-radius: 0.5rem;
+  background-color: transparent;
+}
+.action-button.gold {
+  background-color: #FFDB2D;
+}
+
+.not-empty {
+  color: red;
+}
+
+.body_main {
+  padding-bottom: 1.3rem;
+}
+.body_main .main_wrapper {
+  margin-top: 0.6rem;
+  display: flex;
+  gap: 1rem;
+}
+.body_main .main_wrapper .main_heading .heading_h2 {
+  font-family: "GeometriaBold";
+  font-size: 1.9rem;
+  letter-spacing: -0.019rem;
+}
+.body_main .main_wrapper .main_heading .heading_description {
+  max-width: 25rem;
+  margin-top: 1.5rem;
+}
+.body_main .main_wrapper .content .content_article-accordeon {
+  display: flex;
+  margin-top: 2.5rem;
+  margin-bottom: 4.1rem;
+}
+.body_main .main_wrapper .content .content_article-accordeon .article-accordeon_heading {
+  min-width: 13rem;
+}
+.body_main .main_wrapper .content .content_article-accordeon .article-accordeon_heading .accordeon_heading_h3 {
+  font-size: 1.5rem;
+}
+.body_main .main_wrapper .content .content_article-accordeon .article-accordeon_heading:after {
+  content: "";
+  width: 91.5%;
+  border: 1px solid #FFDB2D;
+  float: right;
+  margin-top: 0.3rem;
+}
+.body_main .main_wrapper .content .content_article-accordeon .article-accordeon-content {
+  padding: 0 1rem 0 1.3rem;
+  transition: max-height 0.2s;
+  width: 100%;
+}
+.body_main .main_wrapper .content .content_article-accordeon .article-accordeon-content .accordeon-article {
+  padding: 1.5rem 5rem 1.8rem 1.8rem;
+  margin: 0.2rem;
+  background-color: #F4F4F4;
+  position: relative;
+}
+.body_main .main_wrapper .content .content_article-accordeon .article-accordeon-content .accordeon-article.active::after {
+  transform: rotate(45deg);
+}
+.body_main .main_wrapper .content .content_article-accordeon .article-accordeon-content .accordeon-article.active .description {
+  max-height: 999px;
+  padding: 0.55rem;
+}
+.body_main .main_wrapper .content .content_article-accordeon .article-accordeon-content .accordeon-article::after {
+  content: url(img/open-Icon.png);
+  height: 19px;
+  width: 19px;
+  position: absolute;
+  right: 2.3rem;
+  top: 1.8rem;
+  transform: rotate(0deg);
+  transition: max-height 0.5s;
+}
+.body_main .main_wrapper .content .content_article-accordeon .article-accordeon-content .accordeon-article .heading {
+  font-family: "GeometriaMedium";
+  line-height: 1.5rem;
+}
+.body_main .main_wrapper .content .content_article-accordeon .article-accordeon-content .accordeon-article .description {
+  max-height: 0px;
+  overflow: hidden;
+  transition: 0.5s;
+}
+.body_main .main_wrapper .content .content_article-accordeon .article-accordeon-content .accordeon-article .description .paragraf {
+  margin-top: 1rem;
+  line-height: 1.3rem;
+}
+@media screen and (max-width: 768px) {
+  .body_main .main_wrapper .content .content_article-accordeon {
+    flex-wrap: wrap;
+  }
+}
+.body_main .main_wrapper .main_aside {
+  position: relative;
+  background-color: #E0E0E0;
+  margin-top: 0.1rem;
+  min-width: 28rem;
+  height: 100%;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.body_main .main_wrapper .main_aside .aside_calendar {
+  width: 100%;
+  font-family: "GeometriaMedium";
+  font-size: 1.25rem;
+  text-align: center;
+  text-transform: uppercase;
+}
+@media screen and (max-width: 1024px) {
+  .body_main .main_wrapper .main_aside {
+    min-width: -webkit-fill-available;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .body_main .main_wrapper {
+    flex-wrap: wrap;
+  }
+}
+
+.input {
+  border: 1px solid #828282;
+  margin-bottom: 1rem;
+  padding: 0.5rem 1.1rem 0.7rem;
+  letter-spacing: -0.3px;
+  border-radius: 0.5rem;
+}
+@font-face {
+  font-family: "Geometria";
+  src: url(fonts/geometria.eot);
+  src: url(fonts/geometria.eot?#iefix) format("embedded-opentype"), url(fonts/geometria.woff2) format("woff2"), url(fonts/geometria.woff) format("woff"), url(fonts/geometria.ttf) format("truetype"), url(img/geometria.svg#geometria) format("svg");
+}
+@font-face {
+  font-family: "GeometriaBold";
+  src: url(fonts/geometria-bold.eot);
+  src: url(fonts/geometria-bold.eot?#iefix) format("embedded-opentype"), url(fonts/geometria-bold.woff2) format("woff2"), url(fonts/geometria-bold.woff) format("woff"), url(fonts/geometria-bold.ttf) format("truetype"), url(img/geometria-bold.svg#geometria) format("svg");
+}
+@font-face {
+  font-family: "GeometriaMedium";
+  src: url(fonts/geometria-medium.eot);
+  src: url(fonts/geometria-medium.eot?#iefix) format("embedded-opentype"), url(fonts/geometria-medium.woff2) format("woff2"), url(fonts/geometria-medium.woff) format("woff"), url(fonts/geometria-medium.ttf) format("truetype"), url(img/geometria-medium.svg#geometria) format("svg");
+}
+.modal-owerlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #33333390;
+}
+.modal-owerlay .modal-window {
+  background-color: #f0f0f0;
+  padding: 2rem 2rem 2rem 1rem;
+  max-width: 23rem;
+}
+.modal-owerlay .modal-window .introduction {
+  font-family: "GeometriaMedium";
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+.modal-owerlay .modal-window .input {
+  border: 1px solid #828282;
+  margin-bottom: 2.2rem;
+  padding: 0.5rem 1.1rem 0.7rem;
+  letter-spacing: -0.3px;
+  border-radius: 0.5rem;
+}
+
+.fone-form-simple {
+  opacity: 1;
+  transition: all 3s;
+}
+.today {
+  background-color: #FFDB2D;
+}
+
+.calendar-component .action-button {
+  padding: 0;
+  display: block;
+}
+.calendar-component td {
+  border: transparent 1px solid;
+}
+.calendar-component td.active {
+  border: red 1px solid;
+}
+.today {
+  background-color: #FFDB2D;
+}
+
+.calendar-component .action-button {
+  padding: 0;
+  display: block;
+}
+.calendar-component td {
+  border: transparent 1px solid;
+}
+.calendar-component td.active {
+  border: red 1px solid;
+}
