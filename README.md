@@ -1,5 +1,11 @@
 ## Тестовое задание на позицию Frontend Developer
 
+1. demo https://803142.github.io/-ArviewTQ/dist
+
+2. App screenshot:
+![Безымянный](https://803142.github.io/-ArviewTQ/preview.png)
+
+
 git clone
 
 npm run start
